@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
+    inputs:
+      stoerrelse:
+        description: "Størrelse der tjekkes (test fx med S)"
+        default: "L"
 jobs:
   tjek:
     runs-on: ubuntu-latest
@@ -11,3 +15,4 @@ jobs:
       - run: python3 tjek_troeje.py
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          STOERRELSE: ${{ github.event.inputs.stoerrelse || 'L' }}
